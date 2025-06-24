@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <div class="row align-items-start">
+
+<div class="col-md-8">
+    {% if posts %}
+    {% for post in posts %}
+    <article class="media content-section" style="height:150px;">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a href="#" class="mr-2" style="font-weight:bold;">{{ post[0] }}</a>
+            </div>
+            <p class="article-content">{{ post[1] }}</p>
+            <span style="font-weight:bold; float:right;">
+                <a href="{{ post[2] }}">View More</a>
+            </span>
+        </div>
+    </article>
+    {% endfor %}
+    {% endif %}
+    </div>
+<div class="col-md-4">
+    <div class="content-section ">
+        <h5>Personalized news</h5>
+        <form method="post" action="customize">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="zone">Select Zone</label>
+                <select name="zone" id="zone" class="form-select">
+                    {% for row in form.zone.choices %}
+                    <option value="{{ row[0] }}">{{ row[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+                   <div class="form-group">
+                <label for="newspaper">Select News Paper</label>
+                <select name="newspaper" id="newspaper" class="form-select">
+                    {% for row in form.newspaper.choices %}
+                    <option value="{{ row[0] }}">{{ row[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+                  <div class="form-group">
+                <label for="newscategory">Select News Category</label>
+                <select name="newscategory" id="newscategory" class="form-select">
+                    {% for row in form.newscategory.choices %}
+                    <option value="{{ row[0] }}">{{ row[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+<div class="form-group">
+    {{ form.submit(class='btn btn-primary') }}
+</div>
+        </form>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+    $('#zone').on('change',function(){
+    var zone=$(this).val();
+    $.ajax({
+    url:'/get_papers',
+    method:'POST',
+    data:{zone:zone},
+    dataType:'json',
+    success:function(data){
+    var options='<option value="0">Select News paper</option>';
+    for(var i=0;i<data.length;i++){
+     options +='<option value="'+data[i].id+'">'+ data[i].name +'</option>';
+    }
+    $('#newspaper').html(options);
+    }
+    });
+  });
+  $('#newspaper').on('change',function(){
+    var paper_id=$(this).val();
+    $.ajax({
+    url:'/get_categories',
+    method:'POST',
+    data:{paper_id:paper_id},
+    dataType:'json',
+    success:function(data){
+    var options='<option value="0">Select News Category</option>';
+    for(var i=0;i<data.length;i++){
+     options +='<option value="'+data[i].id+'">'+ data[i].name +'</option>';
+    }
+    $('#newscategory').html(options);
+    }
+    });
+  });
+
+  });
+
+</script>
+{% endblock content %}
+
+
+
+

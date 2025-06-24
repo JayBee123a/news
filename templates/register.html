@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+<h1><center> REGISTER PAGE</center> </h1>
+<form class="row g-3 bg-info">
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" class="form-control" id="inputEmail4">
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">Password</label>
+    <input type="password" class="form-control" id="inputPassword4">
+  </div>
+
+  <div class="col-6">
+    <label for="inputName" class="form-label">First Name</label>
+    <input type="text" class="form-control" id="inputName">
+  </div>
+  <div class="col-6">
+    <label for="inputName" class="form-label">lastname</label>
+    <input type="text" class="form-control">
+  </div>
+  <div class="col-md-6">
+    <label for="input text" class="form-label">Phone no</label>
+    <input type="number" class="form-control">
+  </div>
+  <div class="col-md-4">
+    <label for="inputAddress" class="form-label">Address</label>
+    <select id="inputAddress" class="form-select">
+      <option selected>Choose...</option>
+      <option>...</option>
+    </select>
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Register</button>
+  </div>
+</form>
+</div>
+
+{% endblock content %}
